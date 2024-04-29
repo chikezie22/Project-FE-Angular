@@ -1,0 +1,52 @@
+<app-header (search)="onSearchText($event)"></app-header>
+<div class="grid grid-cols-3 gap-4 m-auto p-8" *ngIf="users">
+  <div
+    *ngFor="let user of users"
+    class="w-full max-w-sm bg-gray-800 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    (click)="redirectToUserDetails(user)"
+  >
+    <div *ngIf="searchText === '' || user.id.toString().includes(searchText)">
+      <div class="flex justify-end px-4 pt-4">
+        <button
+          id="dropdownButton"
+          data-dropdown-toggle="dropdown"
+          class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+          type="button"
+        >
+          <!-- {{ user.email }} -->
+          {{ user.id }}
+        </button>
+      </div>
+      <div class="flex flex-col items-center pb-10">
+        <img
+          class="w-24 h-24 mb-3 rounded-full shadow-lg"
+          src="{{ user.avatar }}"
+          alt="Bonnie image"
+        />
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          {{ user.first_name }}, {{ user.last_name }}
+        </h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{
+          user.email
+        }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-start-3 ml-auto px-14">
+    <button
+      *ngIf="currentPage > 1"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      (click)="onPreviousPage()"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+      (click)="onNextPage()"
+    >
+      Next
+    </button>
+  </div>
+</div>
+<!-- <router-outlet></router-outlet> -->
